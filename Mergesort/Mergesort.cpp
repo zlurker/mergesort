@@ -51,11 +51,12 @@ int* mergesort(int* arr, int len) {
 			fHT++;
 		}
 		else {
+			cout << secH[sHT] << " ";
 			arr[i] = secH[sHT];
 			sHT++;
 		}
 
-		cout << arr[i] << " ";
+		//cout << arr[i] << " ";
 	}
 	cout << endl;
 	//delete[] firstH;
