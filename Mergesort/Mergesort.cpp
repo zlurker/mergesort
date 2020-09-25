@@ -5,10 +5,65 @@
 #include <iostream>
 using namespace std;
 
-int numbercases[10] = { 300,2392,493,504,2792,659,112,20,30,9 };
+int* numbercases = new int[] { 300, 2392, 493, 504, 2792, 659, 112, 20, 30, 9 };
+
+int* mergesort(int* arr, int len) {
+	int halvedLen = len / 2;
+
+	if (len == 2) {
+
+		if (arr[0] < arr[1])
+			return arr;
+
+		int fEle = arr[0];
+		arr[0] = arr[1];
+		arr[1] = fEle;
+		return arr;
+	}
+	else if (len == 1) {
+		return arr;
+	}
+
+	int* firstH = new int[halvedLen];
+	int* secH = new int[len - halvedLen];
+
+	for (int i = 0; i < halvedLen; i++)
+		firstH[i] = arr[i];
+
+	for (int i = halvedLen; i < len - halvedLen; i++)
+		secH[i] = arr[i];
+
+	firstH = mergesort(firstH, halvedLen);
+	secH = mergesort(secH, len - halvedLen);
+
+	int fHT = 0;
+	int sHT = 0;
+
+	for (int i = 0; i < len; i++) {
+		if (firstH[fHT] < secH[sHT]) {
+			arr[i] = firstH[fHT];
+			fHT++;
+		}
+		else {
+			arr[i] = secH[sHT];
+			sHT++;
+		}
+	}
+
+	delete[] firstH;
+	delete[] secH;
+
+	return arr;
+}
 
 int main()
 {
-    return 0;
+	numbercases = mergesort(numbercases, 10);
+
+	for (int i = 0; i < 10; i++)
+		cout << numbercases[i] << " ";
+
+	cout << endl;
+	return 0;
 }
 
