@@ -8,11 +8,11 @@ using namespace std;
 int* numbercases = new int[10]{ 300, 2392, 493, 504, 2792, 659, 112, 20, 30, 9 };
 
 int* mergesort(int* arr, int len) {
-	cout << "input: ";
-	for (int i = 0; i < len; i++)
-		cout << arr[i] << " ";
+	//cout << "input: ";
+	//for (int i = 0; i < len; i++)
+		//cout << arr[i] << " ";
 
-	cout << endl;
+	//cout << endl;
 	int halvedLen = len / 2;
 
 	if (len == 2) {
@@ -31,12 +31,16 @@ int* mergesort(int* arr, int len) {
 
 	int* firstH = new int[halvedLen];
 	int* secH = new int[len - halvedLen];
-
-	for (int i = 0; i < halvedLen; i++)
+	//cout <<endl<< "input A0: ";
+	for (int i = 0; i < halvedLen; i++) {
 		firstH[i] = arr[i];
-
-	for (int i = halvedLen; i < len; i++)
+		//cout << firstH[i] << " ";
+	}
+	//cout <<endl<< "input A1: ";
+	for (int i = halvedLen; i < len; i++) {
 		secH[i - halvedLen] = arr[i];
+		//cout << secH[i - halvedLen] << " ";
+	}
 
 	firstH = mergesort(firstH, halvedLen);
 	secH = mergesort(secH, len - halvedLen);
@@ -49,19 +53,27 @@ int* mergesort(int* arr, int len) {
 
 		int type =-1;
 
-		if (firstH[fHT] < secH[sHT] || sHT >= len - halvedLen) {
+		if (fHT >= halvedLen) {
+			arr[i] = secH[sHT];
+			sHT++;
+			continue;
+		}
+
+		if (sHT >= len - halvedLen) {
 			arr[i] = firstH[fHT];
 			fHT++;
-			type = 0;
+			continue;
+		}
+
+		if (firstH[fHT] < secH[sHT]) {
+			arr[i] = firstH[fHT];
+			fHT++;			
 		}
 		else {
 			//cout << secH[sHT] << " ";
 			arr[i] = secH[sHT];
 			sHT++;
-			type = 1;
 		}
-
-		cout << type << ": " << arr[i] << " ";
 	}
 	cout << endl;
 	//delete[] firstH;
