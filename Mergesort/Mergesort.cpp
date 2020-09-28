@@ -48,24 +48,9 @@ int* mergesort(int* arr, int len) {
 	int fHT = 0;
 	int sHT = 0;
 
-	cout << "output: ";
 	for (int i = 0; i < len; i++) {
 
-		int type =-1;
-
-		if (fHT >= halvedLen) {
-			arr[i] = secH[sHT];
-			sHT++;
-			continue;
-		}
-
-		if (sHT >= len - halvedLen) {
-			arr[i] = firstH[fHT];
-			fHT++;
-			continue;
-		}
-
-		if (firstH[fHT] < secH[sHT]) {
+		if ((fHT < halvedLen && firstH[fHT] < secH[sHT]) || sHT >= len - halvedLen) {
 			arr[i] = firstH[fHT];
 			fHT++;			
 		}
@@ -75,7 +60,6 @@ int* mergesort(int* arr, int len) {
 			sHT++;
 		}
 	}
-	cout << endl;
 	//delete[] firstH;
 	//delete[] secH;
 
